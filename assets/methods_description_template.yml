@@ -12,6 +12,8 @@ data: |
   <pre><code>${workflow.commandLine}</code></pre>
   <h4>References</h4>
   <ul>
+    <li>Incarnato et al., (2018) RNA Framework: an all-in-one toolkit for the analysis of RNA structures and post-transcriptional modifications (<a href = "https://www.ncbi.nlm.nih.gov/pubmed/29893890"> PMID: 29893890 </a>)</li>
+    <li>Incarnato et al., (2015) RNA structure framework: automated transcriptome-wide reconstruction of RNA secondary structures from high-throughput structure probing data (<a href = "https://www.ncbi.nlm.nih.gov/pubmed/26487736"> PMID: 26487736 </a>)</li>
     <li>Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316-319. <a href="https://doi.org/10.1038/nbt.3820">https://doi.org/10.1038/nbt.3820</a></li>
     <li>Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Di Tommaso, P., & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology, 38(3), 276-278. <a href="https://doi.org/10.1038/s41587-020-0439-x">https://doi.org/10.1038/s41587-020-0439-x</a></li>
   </ul>

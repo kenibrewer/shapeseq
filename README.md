@@ -28,6 +28,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
 2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+3. Fetch/Build a bowtie2 index ([`bowtie2-build`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
+4. Map reads to the reference ([`RNAFramework`](https://rnaframework-docs.readthedocs.io/en/latest/) and [`bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml))
 
 ## Quick Start
 
@@ -80,6 +82,9 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 <!-- If you use  nf-core/shapeseq for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
 <!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
+
+* Incarnato et al., (2018) RNA Framework: an all-in-one toolkit for the analysis of RNA structures and post-transcriptional modifications ([PMID: 29893890](https://www.ncbi.nlm.nih.gov/pubmed/29893890))
+* Incarnato et al., (2015) RNA structure framework: automated transcriptome-wide reconstruction of RNA secondary structures from high-throughput structure probing data ([PMID: 26487736](https://www.ncbi.nlm.nih.gov/pubmed/26487736))
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
