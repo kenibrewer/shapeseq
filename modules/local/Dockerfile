@@ -9,7 +9,7 @@ ARG USER_GID=$USER_UID
 
 # Metadata
 LABEL base_image="ubuntu:22.04" \
-      version="0.1-dev"   \
+      version="2.8.3"   \
       software="RNA Framework" \
       software.version=${RNA_FRAMEWORK_VERSION} \
       about.summary="RNA structure probing and post-transcriptional modifications mapping high-throughput data analysis" \
@@ -23,6 +23,8 @@ LABEL maintainer="Ken Brewer <ken@kenbrewer.com>"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+
+# Add apt-get repositories
 RUN apt-get update && apt-get install -y \
     wget \
     curl \
@@ -35,14 +37,15 @@ RUN apt-get update && apt-get install -y \
     git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-# Install Mambaforge
 
+# Install Mambaforge
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 RUN wget -O Mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" && \
     bash Mambaforge.sh -b -p "${HOME}/conda"
 ENV PATH="/home/${USERNAME}/conda/bin:${PATH}"
-# Setup Bioconda channel configuration
+
+# Setup Bioconda channel configuration and install dependencies
 RUN conda config --add channels defaults && \
     conda config --add channels bioconda && \
     conda config --add channels conda-forge && \
@@ -58,7 +61,7 @@ RUN conda config --add channels defaults && \
         rnastructure>=5.6 && \
     mamba clean -a -y
 
-# Install Perl non-core modules (XML::LibXML, Config::Simple)
+# Install Perl non-core modules (inc::latest, XML::LibXML, Config::Simple)
 RUN cpanm \
     inc::latest \
     XML::LibXML \
@@ -71,11 +74,5 @@ RUN mkdir rnaframework && \
     git remote add origin https://github.com/dincarnato/RNAFramework && \
     git fetch --depth 1 origin ${RNA_FRAMEWORK_VERSION} && \
     git checkout FETCH_HEAD
-
-# Add RNA Framework to PATH
-ENV PATH="${HOME}/rnaframework:${PATH}"
+ENV PATH="/home/${USERNAME}/rnaframework:${PATH}"
 WORKDIR /data
-
-
-
-
