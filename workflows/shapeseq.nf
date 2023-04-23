@@ -16,6 +16,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
+if (params.fasta) { ch_fasta = Channel.fromPath(params.fasta) } else { exit 1, 'Genome/Fasta file not specified!' }
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,6 +82,17 @@ workflow SHAPESEQ {
         INPUT_CHECK.out.reads
     )
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+
+    //
+    // MODULE: Build Bowtie2 index
+    //
+
+    ch_meta_fasta = ch_fasta.map{ it -> [ it.name, it ] }
+
+    BOWTIE2_BUILD (
+        ch_meta_fasta
+    )
+    ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
 
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
